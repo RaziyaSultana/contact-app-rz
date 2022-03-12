@@ -1,11 +1,12 @@
 
 import React, {useState, useEffect} from "react";
 import { v4 as uuidv4 } from 'uuid'; //for getting unique ids/keys
+import {BrowserRouter as Router, Routes,Switch, Route } from "react-router-dom";
 import './App.css';
 import  Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
-
+import AddContactF from "./AddContactF";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
@@ -35,11 +36,19 @@ function App() {
 
 
   return (
-    <div className="ui container">
-      <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} getContactId={removeContactHandler} />
-    </div>
+    
+      <Router>
+        <div className="ui container">
+        <Header />
+        <Routes>
+         <Route path="/" element={<ContactList contacts={contacts} getContactId={removeContactHandler}/>} />
+         <Route path="/add" element={<AddContactF  addContactHandler={addContactHandler} />} />
+       </Routes>
+        {/* <AddContact addContactHandler={addContactHandler} /> */}
+        {/* <ContactList contacts={contacts} getContactId={removeContactHandler} /> */}
+        </div>
+      </Router>
+   
   );
 }
 
